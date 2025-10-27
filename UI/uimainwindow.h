@@ -4,10 +4,13 @@
 #include "Utilities/roadintersectionsimulation.h"
 #include "UI/intropage.h"
 #include "UI/simulationsetup.h"
+#include <QVector>
 
 namespace Ui {
 class UIMainWindow;
 }
+
+class QPushButton;
 
 class UIMainWindow : public QWidget
 {
@@ -71,12 +74,19 @@ private slots:
     void on_m_go_through_check_box_stateChanged(int arg1);
 
 private:
+    void applyWpfTheme();
+    void initializeNavigation();
+    void updateNavigationState(QPushButton *selectedButton);
+    void setPage(int index, const QString &title, const QString &caption);
+    void showHomePage();
+    void showSettingsPage();
     Ui::UIMainWindow *ui;
     RoadIntersectionSimulation *m_Simulation;
     RoadIntersectionSimulation *m_Demo;
     IntroPage *m_intro_page;
     SimulationSetup *m_setup;
     int m_time_frame;
+    QVector<QPushButton*> m_navigationButtons;
 
 };
 

@@ -75,4 +75,7 @@
         <file>Image/Cars/Asset 17.png</file>
         <file>Image/Cars/Asset 18.png</file>
     </qresource>
+    <qresource prefix="/styles">
+        <file>UI/styles/wpfui.qss</file>
+    </qresource>
 </RCC>

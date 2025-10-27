@@ -1,5 +1,8 @@
 #include "uimainwindow.h"
 #include "ui_uimainwindow.h"
+#include <QApplication>
+#include <QFile>
+#include <QPushButton>
 
 UIMainWindow::UIMainWindow(QWidget *parent)
     :QWidget(parent)
@@ -7,6 +10,8 @@ UIMainWindow::UIMainWindow(QWidget *parent)
     ,m_time_frame(0)
 {
     ui->setupUi(this);
+
+    applyWpfTheme();
 
     ui->graphicsView->setResizeAnchor(QGraphicsView::AnchorViewCenter);
     ui->graphicsView->setViewport(new QGLWidget(QGLFormat(QGL::SampleBuffers)));
@@ -53,7 +58,7 @@ UIMainWindow::UIMainWindow(QWidget *parent)
 //    connect(m_Simulation,&RoadIntersectionSimulation::updatedOneFrame,
 //            ui->m_visualize_panel,&VisualizePanel::update_all);
 
-
+    initializeNavigation();
 }
 
 UIMainWindow::~UIMainWindow()
@@ -71,13 +76,19 @@ void UIMainWindow::onExitButtonClicked()
 
 void UIMainWindow::onAboutButtonClicked()
 {
-    ui->m_stacked_widget->setCurrentIndex(1);
+    updateNavigationState(ui->m_nav_about_button);
+    setPage(1,
+            tr("About"),
+            tr("Learn about the team, motivations, and technologies behind the simulator."));
     m_Demo->pauseSimulation();
 }
 
 void UIMainWindow::onPlayButtonClicked()
 {
-    ui->m_stacked_widget->setCurrentIndex(4);
+    updateNavigationState(ui->m_nav_simulation_button);
+    setPage(4,
+            tr("Simulation"),
+            tr("Monitor live traffic flow and adjust behaviours in real time."));
     m_Demo->pauseSimulation();
     if(m_Simulation->State() == SimulationState::UNINITIALIZED){
 
@@ -89,7 +100,10 @@ void UIMainWindow::onPlayButtonClicked()
 
 void UIMainWindow::onHelpButtonClicked()
 {
-    ui->m_stacked_widget->setCurrentIndex(2);
+    updateNavigationState(ui->m_nav_help_button);
+    setPage(2,
+            tr("Help"),
+            tr("Follow the guided tour to explore the interface and controls."));
     m_Demo->pauseSimulation();
     ui->help_widget->startDemo();
 }
@@ -114,27 +128,23 @@ void UIMainWindow::updateStatus()
 
 void UIMainWindow::on_m_about_back_button_clicked()
 {
-    ui->m_stacked_widget->setCurrentIndex(0);
-    m_Demo->startSimulation();
+    showHomePage();
 }
 
 void UIMainWindow::on_m_help_back_button_clicked()
 {
-    ui->m_stacked_widget->setCurrentIndex(0);
-    ui->help_widget->stopDemo();
-    m_Demo->startSimulation();
+    showHomePage();
 }
 
 void UIMainWindow::on_m_simulation_back_icon_clicked()
 {
-    ui->m_stacked_widget->setCurrentIndex(0);
     m_Simulation->pauseSimulation();
-    m_Demo->startSimulation();
+    showHomePage();
 }
 
 void UIMainWindow::on_m_setting_back_icon_clicked()
 {
-    ui->m_stacked_widget->setCurrentIndex(0);
+    showHomePage();
 }
 
 void UIMainWindow::on_m_simulation_play_button_clicked()
@@ -226,4 +236,71 @@ void UIMainWindow::on_m_go_through_check_box_stateChanged(int arg1)
     }else if(arg1 == Qt::Unchecked){
         m_Simulation->turnOffGoThrough();
     }
+}
+
+void UIMainWindow::applyWpfTheme()
+{
+    QFile styleFile(QStringLiteral(":/styles/UI/styles/wpfui.qss"));
+    if (styleFile.open(QFile::ReadOnly | QFile::Text)) {
+        qApp->setStyleSheet(QString::fromUtf8(styleFile.readAll()));
+    }
+}
+
+void UIMainWindow::initializeNavigation()
+{
+    m_navigationButtons = {
+        ui->m_nav_home_button,
+        ui->m_nav_simulation_button,
+        ui->m_nav_settings_button,
+        ui->m_nav_about_button,
+        ui->m_nav_help_button
+    };
+
+    connect(ui->m_nav_home_button, &QPushButton::clicked, this, &UIMainWindow::showHomePage);
+    connect(ui->m_nav_simulation_button, &QPushButton::clicked, this, [this]() {
+        onPlayButtonClicked();
+    });
+    connect(ui->m_nav_settings_button, &QPushButton::clicked, this, &UIMainWindow::showSettingsPage);
+    connect(ui->m_nav_about_button, &QPushButton::clicked, this, &UIMainWindow::onAboutButtonClicked);
+    connect(ui->m_nav_help_button, &QPushButton::clicked, this, &UIMainWindow::onHelpButtonClicked);
+    connect(ui->m_nav_exit_button, &QPushButton::clicked, this, &UIMainWindow::onExitButtonClicked);
+
+    showHomePage();
+}
+
+void UIMainWindow::updateNavigationState(QPushButton *selectedButton)
+{
+    for (auto *button : m_navigationButtons) {
+        if (button) {
+            button->setChecked(button == selectedButton);
+        }
+    }
+}
+
+void UIMainWindow::setPage(int index, const QString &title, const QString &caption)
+{
+    ui->m_stacked_widget->setCurrentIndex(index);
+    ui->m_header_title->setText(title);
+    if (!caption.isEmpty()) {
+        ui->m_header_caption->setText(caption);
+    }
+}
+
+void UIMainWindow::showHomePage()
+{
+    updateNavigationState(ui->m_nav_home_button);
+    setPage(0,
+            tr("Home"),
+            tr("Experience a fluid interface inspired by WPF UI."));
+    ui->help_widget->stopDemo();
+    m_Demo->startSimulation();
+}
+
+void UIMainWindow::showSettingsPage()
+{
+    updateNavigationState(ui->m_nav_settings_button);
+    setPage(3,
+            tr("Settings"),
+            tr("Configure the simulation to match your scenario."));
+    m_Demo->pauseSimulation();
 }
