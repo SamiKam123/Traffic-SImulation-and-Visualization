@@ -1,0 +1,27 @@
+<UserControl x:Class="TrafficSimulation.Wpf.Views.AboutPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <StackPanel Spacing="16">
+        <TextBlock Text="Traffic Simulation & Visualization" FontSize="22" FontWeight="Bold" />
+        <TextBlock TextWrapping="Wrap"
+                   Text="This WPF client demonstrates a modern navigation shell inspired by the WPF UI toolkit. Integrate your existing simulation core to drive the visuals and metrics displayed across the pages." />
+        <GroupBox Header="Technology stack">
+            <StackPanel Margin="12" Spacing="6">
+                <TextBlock Text="• WPF on .NET 7" />
+                <TextBlock Text="• MVVM-friendly layout ready for bindings" />
+                <TextBlock Text="• Placeholder views for simulation, setup, help and about content" />
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Header="Credits">
+            <StackPanel Margin="12" Spacing="6">
+                <TextBlock Text="Design lead: Your Name" />
+                <TextBlock Text="Simulation engine: Existing C++ core" />
+                <TextBlock Text="UI inspiration: wpfui by lepoco" />
+            </StackPanel>
+        </GroupBox>
+    </StackPanel>
+</UserControl>

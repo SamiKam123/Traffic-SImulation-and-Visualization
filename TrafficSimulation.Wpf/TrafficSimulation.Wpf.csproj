@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net7.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>false</UseWindowsForms>
+    <RootNamespace>TrafficSimulation.Wpf</RootNamespace>
+    <AssemblyName>TrafficSimulation.Wpf</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <Page Include="Themes/Colors.xaml" />
+    <Page Include="Themes/Styles.xaml" />
+    <Page Include="App.xaml" />
+    <Page Include="MainWindow.xaml" />
+    <Page Include="Views/SimulationPage.xaml" />
+    <Page Include="Views/SettingsPage.xaml" />
+    <Page Include="Views/HelpPage.xaml" />
+    <Page Include="Views/AboutPage.xaml" />
+  </ItemGroup>
+</Project>

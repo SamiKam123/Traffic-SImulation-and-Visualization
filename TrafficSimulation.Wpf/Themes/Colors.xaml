@@ -1,0 +1,20 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Color x:Key="Primary100">#FF0A84FF</Color>
+    <Color x:Key="Primary80">#FF409CFF</Color>
+    <Color x:Key="Primary60">#FF66B0FF</Color>
+    <Color x:Key="Primary20">#FFE1F0FF</Color>
+
+    <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource Primary100}" />
+    <SolidColorBrush x:Key="PrimaryBrush80" Color="{StaticResource Primary80}" />
+    <SolidColorBrush x:Key="PrimaryBrush60" Color="{StaticResource Primary60}" />
+    <SolidColorBrush x:Key="PrimaryBrush20" Color="{StaticResource Primary20}" />
+
+    <SolidColorBrush x:Key="ForegroundBrush" Color="#FF101828" />
+    <SolidColorBrush x:Key="SecondaryForegroundBrush" Color="#FF475467" />
+    <SolidColorBrush x:Key="SurfaceBrush" Color="#FFF8FAFC" />
+    <SolidColorBrush x:Key="SurfaceBorderBrush" Color="#FFD0D5DD" />
+    <SolidColorBrush x:Key="HeaderBrush" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="NavigationBrush" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="NavigationSelectedBrush" Color="#FFE9EFFD" />
+</ResourceDictionary>

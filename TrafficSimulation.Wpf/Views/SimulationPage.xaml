@@ -1,0 +1,56 @@
+<UserControl x:Class="TrafficSimulation.Wpf.Views.SimulationPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Spacing="12">
+            <ComboBox Width="200" PlaceholderText="Scenario">
+                <ComboBoxItem Content="Four-way Intersection" IsSelected="True" />
+                <ComboBoxItem Content="Roundabout" />
+                <ComboBoxItem Content="Highway Merge" />
+            </ComboBox>
+            <ComboBox Width="180" PlaceholderText="Traffic Density">
+                <ComboBoxItem Content="Low" />
+                <ComboBoxItem Content="Medium" IsSelected="True" />
+                <ComboBoxItem Content="High" />
+            </ComboBox>
+            <ComboBox Width="180" PlaceholderText="Signal Profile">
+                <ComboBoxItem Content="Fixed" IsSelected="True" />
+                <ComboBoxItem Content="Adaptive" />
+                <ComboBoxItem Content="Manual" />
+            </ComboBox>
+        </StackPanel>
+        <Border Grid.Row="1" Margin="0,24,0,0" Background="White" CornerRadius="16" Padding="24" BorderBrush="{StaticResource SurfaceBorderBrush}" BorderThickness="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Border Background="{StaticResource PrimaryBrush20}" CornerRadius="12" Margin="0,0,24,0">
+                    <TextBlock TextWrapping="Wrap"
+                               Text="A live simulation canvas would render here. Hook your rendering engine or DirectX surface into this placeholder to display vehicles, traffic lights, and pedestrian flows." Margin="24" />
+                </Border>
+                <StackPanel Grid.Column="1" Spacing="16">
+                    <GroupBox Header="Key Metrics">
+                        <StackPanel Margin="12" Spacing="6">
+                            <TextBlock Text="Average wait time: 12.4s" />
+                            <TextBlock Text="Throughput: 245 vehicles/hour" />
+                            <TextBlock Text="Pedestrian delay: 4.8s" />
+                        </StackPanel>
+                    </GroupBox>
+                    <GroupBox Header="Diagnostics">
+                        <TextBlock Margin="12" TextWrapping="Wrap"
+                                   Text="Toggle debug overlays or inspect the simulation logs while iterating on agent behaviour." />
+                    </GroupBox>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

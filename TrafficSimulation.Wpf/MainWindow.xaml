@@ -1,0 +1,58 @@
+<Window x:Class="TrafficSimulation.Wpf.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:TrafficSimulation.Wpf"
+        Title="Traffic Simulation" Height="720" Width="1180"
+        MinWidth="960" MinHeight="600">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="260" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Border Background="{StaticResource NavigationBrush}" Padding="24" BorderBrush="{StaticResource SurfaceBorderBrush}" BorderThickness="0,0,1,0">
+            <DockPanel LastChildFill="True">
+                <StackPanel DockPanel.Dock="Top" Margin="0,0,0,24">
+                    <TextBlock Text="Traffic Studio" FontSize="22" FontWeight="Bold" />
+                    <TextBlock Text="Configure and visualize road intersections"
+                               Foreground="{StaticResource SecondaryForegroundBrush}" Margin="0,6,0,0" />
+                </StackPanel>
+                <StackPanel DockPanel.Dock="Bottom" Margin="0,24,0,0" Spacing="12">
+                    <Button Content="Start Simulation" Click="StartSimulation_Click" />
+                    <TextBlock TextWrapping="Wrap"
+                               Text="Launch the interactive simulation using the selected parameters."
+                               Foreground="{StaticResource SecondaryForegroundBrush}" />
+                </StackPanel>
+                <StackPanel Spacing="8">
+                    <ToggleButton x:Name="SimulationButton" Content="Simulation"
+                                  Style="{StaticResource NavigationButtonStyle}"
+                                  Checked="Navigation_Checked" Tag="Simulation" IsChecked="True" />
+                    <ToggleButton x:Name="SetupButton" Content="Setup"
+                                  Style="{StaticResource NavigationButtonStyle}"
+                                  Checked="Navigation_Checked" Tag="Settings" />
+                    <ToggleButton x:Name="HelpButton" Content="Help"
+                                  Style="{StaticResource NavigationButtonStyle}"
+                                  Checked="Navigation_Checked" Tag="Help" />
+                    <ToggleButton x:Name="AboutButton" Content="About"
+                                  Style="{StaticResource NavigationButtonStyle}"
+                                  Checked="Navigation_Checked" Tag="About" />
+                </StackPanel>
+            </DockPanel>
+        </Border>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Border Background="{StaticResource HeaderBrush}" Padding="32" BorderBrush="{StaticResource SurfaceBorderBrush}" BorderThickness="0,0,0,1">
+                <StackPanel>
+                    <TextBlock Text="{Binding HeaderTitle, Mode=OneWay}" FontSize="28" FontWeight="Bold" />
+                    <TextBlock Text="{Binding HeaderSubtitle, Mode=OneWay}" Margin="0,8,0,0"
+                               Foreground="{StaticResource SecondaryForegroundBrush}" />
+                </StackPanel>
+            </Border>
+            <Border Grid.Row="1" Padding="32">
+                <ContentPresenter Content="{Binding CurrentPage}" />
+            </Border>
+        </Grid>
+    </Grid>
+</Window>
